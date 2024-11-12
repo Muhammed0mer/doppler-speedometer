@@ -1,5 +1,4 @@
 from scipy import fft
-import scipy.signal as sig
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.io import wavfile
@@ -53,51 +52,38 @@ def frequency_spectrum(x, sf):
 # here_path = os.path.dirname(os.path.realpath(__file__))
 # wav_file_name = 'Alesis-Sanctuary-QCard-Crickets.wav'
 # wave_file_path = os.path.join(here_path, wav_file_name)
-sr, signal = wavfile.read('ald.wav')
+sr, signal = wavfile.read('monza-track-side-69992.mp3')
+signal1 = signal[0:int(len(signal)/2)]
+signal2 = signal[int(len(signal)/2):]
+print(len(signal1),len(signal2))
 
-notpass= True
-bisect_point = int(len(signal)/2)
-begin = 0
-end = len(signal)
-while (notpass):
-    signal_appr = signal[begin:bisect_point]
-    signal_rec = signal[bisect_point:end]
-
-    peaks_appr=sig.find_peaks(signal_appr,height=np.average(signal_appr)*1.5,distance=500)
-    peaks_rec=sig.find_peaks(signal_rec,height=np.average(signal_rec)*1.5,distance=500)
-
-    
-
-
-print(len(signal_appr),len(signal_rec))
-
-y1 = signal_appr[:, 0]  # use the first channel (or take their average, alternatively)
+y1 = signal1[:, 0]  # use the first channel (or take their average, alternatively)
 t1 = np.arange(len(y1)) / float(sr)
 
-plt.subplot(4, 2, 1)
+plt.subplot(2, 2, 1)
 plt.plot(t1, y1)
 plt.xlabel('t1')
 plt.ylabel('y1')
 
 frq1, X1 = frequency_spectrum(y1, sr)
 
-plt.subplot(4, 2, 2)
+plt.subplot(2, 2, 2)
 plt.plot(frq1, X1, 'b')
 plt.xlabel('Freq1 (Hz)')
 plt.ylabel('|X(freq1)|')
 plt.tight_layout()
 
-y2 = signal_rec[:, 0]  # use the first channel (or take their average, alternatively)
+y2 = signal2[:, 0]  # use the first channel (or take their average, alternatively)
 t2 = np.arange(len(y2)) / float(sr)
 
-plt.subplot(4, 2, 3)
+plt.subplot(2, 2, 3)
 plt.plot(t2, y2)
 plt.xlabel('t2')
 plt.ylabel('y2')
 
 frq2, X2 = frequency_spectrum(y2, sr)
 
-plt.subplot(4, 2, 4)
+plt.subplot(2, 2, 4)
 plt.plot(frq2, X2, 'b')
 plt.xlabel('Freq2 (Hz)')
 plt.ylabel('|X(freq2)|')

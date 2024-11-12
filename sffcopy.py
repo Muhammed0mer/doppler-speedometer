@@ -185,7 +185,7 @@ def seek_plot(seekpointstart,seek, seekpointend):
     signal2 = signal[int(len(signal)*seekpointstart):int(len(signal)*seekpointend)]
     print(len(signal1),len(signal2))
 
-y1 = signal1[:, 0]  # use the first channel (or take their average, alternatively)
+y1 = signal[:, 0]  # use the first channel (or take their average, alternatively)
 t1 = np.arange(len(y1)) / float(sr)
 
 # plt.subplot(2, 2, 1)
@@ -202,7 +202,7 @@ frq1, X1 = frequency_spectrum(y1, sr)
 # plt.ylabel('|X(freq1)|')
 # plt.tight_layout()
 
-y2 = signal2[:, 0]  # use the first channel (or take their average, alternatively)
+y2 = signal[:, 0]  # use the first channel (or take their average, alternatively)
 t2 = np.arange(len(y2)) / float(sr)
 
 # plt.subplot(2, 2, 3)

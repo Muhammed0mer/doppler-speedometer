@@ -1,4 +1,4 @@
-from scipy import fft, arange
+from scipy import fft
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.io import wavfile
@@ -15,7 +15,7 @@ def frequency_spectrum(x, sf):
     x = x - np.average(x)  # zero-centering
 
     n = len(x)
-    k = arange(n)
+    k = np.arange(n)
     tarr = n / float(sf)
     frqarr = k / float(tarr)  # two sides frequency range
 
@@ -52,12 +52,12 @@ def frequency_spectrum(x, sf):
 # here_path = os.path.dirname(os.path.realpath(__file__))
 # wav_file_name = 'Alesis-Sanctuary-QCard-Crickets.wav'
 # wave_file_path = os.path.join(here_path, wav_file_name)
-sr, signal = wavfile.read('ald.wav')
-signal1 = signal[0:int(len(signal)/2)]
-signal2 = signal[int(len(signal)/2):]
+sr, signal = wavfile.read('foo.wav')
+signal1 = signal[0:int(len(signal)/23)]
+signal2 = signal[int(len(signal)/21):int(len(signal)/11)]
 print(len(signal1),len(signal2))
 
-y1 = signal1[:, 0]  # use the first channel (or take their average, alternatively)
+y1 = signal1[:]  # use the first channel (or take their average, alternatively)
 t1 = np.arange(len(y1)) / float(sr)
 
 plt.subplot(2, 2, 1)
@@ -73,7 +73,7 @@ plt.xlabel('Freq1 (Hz)')
 plt.ylabel('|X(freq1)|')
 plt.tight_layout()
 
-y2 = signal2[:, 0]  # use the first channel (or take their average, alternatively)
+y2 = signal2[:]  # use the first channel (or take their average, alternatively)
 t2 = np.arange(len(y2)) / float(sr)
 
 plt.subplot(2, 2, 3)
